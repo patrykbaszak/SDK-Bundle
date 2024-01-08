@@ -1,0 +1,83 @@
+{
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "authors": [],
+    "keywords": [
+        "symfony",
+        "skeleton"
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "symfony/console": "^6",
+        "symfony/dotenv": "^6",
+        "symfony/flex": "^2",
+        "symfony/framework-bundle": "^6",
+        "symfony/runtime": "^6",
+        "symfony/uid": "^6",
+        "symfony/yaml": "^6"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "*",
+        "phpstan/phpdoc-parser": "*",
+        "phpstan/phpstan": "*",
+        "phpstan/phpstan-symfony": "*",
+        "phpunit/phpunit": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Pbaszak\\SdkBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pbaszak\\SdkBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "cache:clear": "rm -rf var/cache /tmp/symfony-cache && bin/console cache:clear",
+        "code:fix": "vendor/bin/php-cs-fixer fix",
+        "code:analyse": "vendor/bin/phpstan analyse src -c tools/phpstan/fpm-config.neon",
+        "code:analyse:b": "vendor/bin/phpstan analyse src -c tools/phpstan/fpm-config.neon --generate-baseline tools/phpstan/fpm-baseline.neon --allow-empty-baseline",
+        "phpunit": "vendor/bin/phpunit --colors=always",
+        "test:unit": "@phpunit --group unit tests",
+        "test:ci": [
+            "@code:fix",
+            "@code:analyse",
+            "@test:unit"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "^6"
+        }
+    },
+    "name": "pbaszak/sdk-bundle",
+    "title": "PBaszak SDK Bundle",
+    "description": "SDK Bundle is used to create HTTP clients to work with the Symfony framework. The purpose of the SDK is to handle mapping, integration tests, event generation, and easy creation of new SDKs to be shared within the microservices cluster."
+}
